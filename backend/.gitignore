@@ -13,6 +13,4 @@ htmlcov/
 
 # Data persistence files
 data/
-*.json
-!package.json
 
