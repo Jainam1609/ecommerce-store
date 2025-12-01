@@ -156,11 +156,13 @@ class Store:
         
         if discount_code:
             discount = self.validate_discount_code(discount_code)
-            if discount:
+            if discount and self.order_count % self.n == 0:
                 discount_amount = subtotal * 0.10  # 10% discount
                 applied_discount_code = discount_code
                 discount.used = True
                 discount.used_at = datetime.now()
+            elif discount and self.order_count % self.n != 0:
+                raise ValueError(f"Discount code can only be used on every {self.n}th order")
             else:
                 raise ValueError("Invalid or already used discount code")
         
